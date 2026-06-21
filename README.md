@@ -1,4 +1,4 @@
-# My Cognizant Weekly Assignment
+# **My Cognizant Weekly Assignment**
 
 This repository contains my weekly assignments, exercises, and learning activities completed as part of the Cognizant training program. The repository is organized in a structured manner to track progress throughout the training period.
 
@@ -32,9 +32,10 @@ The project follows a **weekly submission model**, where each week's work is sto
 
 ## Technologies Used
 
-Depending on the weekly assignments, the repository may include:
+Depending on the weekly assignments, the repository includes:
 
-* Java
+* Java 
+* Oracle Database for PL/SQL
 * Other technologies introduced during training
 
 
@@ -43,14 +44,13 @@ Depending on the weekly assignments, the repository may include:
 * Apply concepts learned during Cognizant training.
 * Develop problem-solving and programming skills.
 * Practice industry-standard coding practices.
-* Build a well-documented portfolio of completed assignments.
 
 
 ## Weekly Progress
 
 | Week   | Status      |
 | ------ | ----------- |
-| Week 1 | Pending     |
+| Week 1 | Completed Mandatory Exercises  |
 | Week 2 | Pending     |
 | Week 3 | Pending     |
 | Week 4 | Pending     |
