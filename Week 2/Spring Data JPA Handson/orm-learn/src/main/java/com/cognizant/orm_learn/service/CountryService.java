@@ -21,7 +21,7 @@ public class CountryService {
     }
 
     @Transactional
-    public Country getCountryByCode(String code) throws CountryNotFoundException {
+    public Country findCountryByCode(String code) throws CountryNotFoundException {
         Optional<Country> countries = countryRepository.findById(code);
         if (countries.isPresent()) {
             return countries.get();
@@ -34,6 +34,14 @@ public class CountryService {
 
     @Transactional
     public void addCountry(Country country) {
+        countryRepository.save(country);
+    }
+
+    @Transactional
+    public void updateCountry(String code, String name)
+            throws CountryNotFoundException {
+        Country country = findCountryByCode(code);
+        country.setName(name);
         countryRepository.save(country);
     }
 }
