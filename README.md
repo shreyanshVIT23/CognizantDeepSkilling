@@ -20,8 +20,11 @@ The purpose of this repository is to:
 
 The project follows a **weekly submission model**, where each week's work is stored in a dedicated folder.
 
+### Week Structure
 
-### Structure 
+![Cognizant Weekly Schedule](./WeeklySchedule.png)
+
+### Directory Structure Style
 
 * Each week has its own directory.
 * Inside the weeks directories the exercise solutions will saved with same naming scheme as provided by the [Digital-Nurture-JavaFSE](https://github.com/seshadrimr/Digital-Nurture-JavaFSE) repository.
