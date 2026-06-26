@@ -31,6 +31,7 @@ public class OrmLearnApplication {
 
 		testGetAllCountries();
 		testFindCountryByCode();
+		testAddCountry();
 	}
 
 	private static void testGetAllCountries() {
@@ -54,6 +55,26 @@ public class OrmLearnApplication {
 		LOGGER.debug("Country={}", country);
 
 		LOGGER.info("End testFindCountryByCode()");
+	}
+
+	private static void testAddCountry()
+			throws CountryNotFoundException {
+
+		LOGGER.info("Start testAddCountry()");
+
+		Country country = new Country();
+
+		country.setCode("M1");
+		country.setName("Republic of Moon");
+
+		countryService.addCountry(country);
+
+		Country result =
+				countryService.getCountryByCode("M1");
+
+		LOGGER.debug("Country={}", result);
+
+		LOGGER.info("End testAddCountry()");
 	}
 
 }

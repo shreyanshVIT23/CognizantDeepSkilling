@@ -31,4 +31,9 @@ public class CountryService {
             );
         }
     }
+
+    @Transactional
+    public void addCountry(Country country) {
+        countryRepository.save(country);
+    }
 }
