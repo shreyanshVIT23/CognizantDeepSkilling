@@ -2,8 +2,9 @@
 
 This repository contains my weekly assignments, exercises, and learning activities completed as part of the Cognizant training program. The repository is organized in a structured manner to track progress throughout the training period.
 
-> ## Note: This README.md will be continuously updated as the weeks progress and is not complete yet.
+> ## Note: This README.md will be continuously updated as the weeks progress and is not complete yet. 
 
+> Completed Weeks: **2**
 
 ## Project Overview
 
@@ -39,6 +40,8 @@ Depending on the weekly assignments, the repository includes:
 
 * Java 
 * Oracle Database for PL/SQL
+* Spring, JPA, Hibernate, Maven
+* MySQL & MySQL WorkBench
 * Other technologies introduced during training
 
 
@@ -54,7 +57,7 @@ Depending on the weekly assignments, the repository includes:
 | Week   | Status      |
 | ------ | ----------- |
 | Week 1 | Completed Mandatory Exercises  |
-| Week 2 | Pending     |
+| Week 2 | Completed|
 | Week 3 | Pending     |
 | Week 4 | Pending     |
 | Week 5 | Pending     |
