@@ -4,5 +4,11 @@ import com.cognizant.orm_learn.model.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface CountryRepository  extends JpaRepository<Country, String> {}
+public interface CountryRepository  extends JpaRepository<Country, String> {
+    List<Country> findByNameContainingIgnoreCase(String text);
+    List<Country> findByNameContainingIgnoreCaseOrderByNameAsc(String text);
+    List<Country> findByNameStartingWithIgnoreCase(String alphabet);
+}

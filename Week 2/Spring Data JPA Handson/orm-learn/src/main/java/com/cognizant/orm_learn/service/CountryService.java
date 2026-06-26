@@ -49,4 +49,22 @@ public class CountryService {
     public void deleteCountry(String code) {
         countryRepository.deleteById(code);
     }
+
+    @Transactional
+    public List<Country> searchCountries(String text) {
+        return countryRepository.findByNameContainingIgnoreCase(text);
+    }
+
+    @Transactional
+    public List<Country> searchCountriesSorted(String text) {
+        return countryRepository
+                .findByNameContainingIgnoreCaseOrderByNameAsc(text);
+    }
+
+    @Transactional
+    public List<Country> getCountriesStartingWith(String text) {
+        return countryRepository.findByNameStartingWithIgnoreCase(text);
+    }
+
+
 }

@@ -34,6 +34,9 @@ public class OrmLearnApplication {
 		testAddCountry();
 		testUpdateCountry();
 		testDeleteCountry();
+		testSearchCountries();
+		testSearchCountriesSorted();
+		testCountriesStartingWith();
 	}
 
 	private static void testGetAllCountries() {
@@ -112,6 +115,49 @@ public class OrmLearnApplication {
 		}
 
 		LOGGER.info("End testDeleteCountry()");
+	}
+
+	private static void testSearchCountries() {
+
+		LOGGER.info("Start testSearchCountries()");
+
+		List<Country> countries =
+				countryService.searchCountries("ou");
+
+		countries.forEach(country ->
+				LOGGER.debug("{}", country));
+
+		LOGGER.info("End testSearchCountries()");
+
+	}
+
+	private static void testSearchCountriesSorted() {
+
+		LOGGER.info("Start testSearchCountriesSorted()");
+
+		List<Country> countries =
+				countryService.searchCountriesSorted("ou");
+
+		countries.forEach(country ->
+				LOGGER.debug("{}", country));
+
+		LOGGER.info("End testSearchCountriesSorted()");
+
+	}
+
+	private static void testCountriesStartingWith() {
+
+		LOGGER.info("Start testCountriesStartingWith()");
+
+		List<Country> countries =
+				countryService
+						.getCountriesStartingWith("Z");
+
+		countries.forEach(country ->
+				LOGGER.debug("{}", country));
+
+		LOGGER.info("End testCountriesStartingWith()");
+
 	}
 
 }
