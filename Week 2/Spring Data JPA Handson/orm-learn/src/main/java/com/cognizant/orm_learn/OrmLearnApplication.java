@@ -33,6 +33,7 @@ public class OrmLearnApplication {
 		testFindCountryByCode();
 		testAddCountry();
 		testUpdateCountry();
+		testDeleteCountry();
 	}
 
 	private static void testGetAllCountries() {
@@ -93,6 +94,24 @@ public class OrmLearnApplication {
 		LOGGER.debug("Country={}", country);
 
 		LOGGER.info("End testUpdateCountry()");
+	}
+
+	private static void testDeleteCountry() {
+
+		LOGGER.info("Start testDeleteCountry()");
+
+		countryService.deleteCountry("M1");
+
+		LOGGER.info("Country deleted");
+
+		try {
+			countryService.findCountryByCode("M1");
+		} catch (CountryNotFoundException e) {
+            LOGGER.error("Country not found");
+			LOGGER.error("Error Log: {}", e.getMessage());
+		}
+
+		LOGGER.info("End testDeleteCountry()");
 	}
 
 }
