@@ -17,16 +17,23 @@ public class SpringLearnApplication {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SpringLearnApplication.class, args);
 		displayDate();
+		displayCountry();
 	}
 
 	public static void displayDate() throws Exception {
-		LOGGER.info("START");
-		ApplicationContext context =
-				new ClassPathXmlApplicationContext("date-format.xml");
-		SimpleDateFormat format =
-				context.getBean("dateFormat", SimpleDateFormat.class);
+		LOGGER.info("START displayDate");
+		ApplicationContext context = new ClassPathXmlApplicationContext("date-format.xml");
+		SimpleDateFormat format = context.getBean("dateFormat", SimpleDateFormat.class);
 		Date date = format.parse("31/12/2018");
 		LOGGER.debug("Parsed Date: {}", date);
-		LOGGER.info("END");
+		LOGGER.info("END  displayDate");
+	}
+
+	public static void displayCountry() {
+		LOGGER.info("START displayCountry");
+		ApplicationContext context = new ClassPathXmlApplicationContext("country.xml");
+		Country country = context.getBean("country", Country.class);
+		LOGGER.debug("Country : {}", country);
+		LOGGER.info("END displayCountry");
 	}
 }
