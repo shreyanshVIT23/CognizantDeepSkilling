@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
         value = HttpStatus.NOT_FOUND,
         reason = "Country Not Found"
 )
-public class CountryNotFoundException extends RuntimeException {
-    public CountryNotFoundException(String message) {
+public class EmployeeNotFoundException extends RuntimeException {
+    public EmployeeNotFoundException(String message) {
         super(message);
     }
-    public CountryNotFoundException() {
-        super("Country Not Found");
+    public EmployeeNotFoundException() {
+        super("Employee Not Found");
     }
 }

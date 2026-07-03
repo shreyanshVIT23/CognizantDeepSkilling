@@ -49,7 +49,7 @@ public class SecurityConfig {
         http.
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/country", "/country/**")
+                        .requestMatchers("/countries", "/countries/**")
                         .hasRole("USER")
                         .anyRequest()
                         .authenticated()
