@@ -4,7 +4,7 @@ This repository contains my weekly assignments, exercises, and learning activiti
 
 > ## Note: This README.md will be continuously updated as the weeks progress and is not complete yet. 
 
-> Completed Weeks: **2**
+> Completed Weeks: **3**
 
 ## Project Overview
 
@@ -40,7 +40,7 @@ Depending on the weekly assignments, the repository includes:
 
 * Java 
 * Oracle Database for PL/SQL
-* Spring, JPA, Hibernate, Maven
+* Spring, JPA, Hibernate, Maven, MockMVC, Spring Security, JWT
 * MySQL & MySQL WorkBench
 * Other technologies introduced during training
 
@@ -57,8 +57,8 @@ Depending on the weekly assignments, the repository includes:
 | Week   | Status      |
 | ------ | ----------- |
 | Week 1 | Completed Mandatory Exercises  |
-| Week 2 | Completed|
-| Week 3 | Pending     |
+| Week 2 | Completed Mandatory Exercises|
+| Week 3 | Completed Mandatory Exercises|
 | Week 4 | Pending     |
 | Week 5 | Pending     |
 | Week 6 | Pending     |
