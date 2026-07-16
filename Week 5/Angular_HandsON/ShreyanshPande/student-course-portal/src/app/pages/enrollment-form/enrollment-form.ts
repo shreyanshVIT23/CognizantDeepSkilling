@@ -12,12 +12,18 @@ export class EnrollmentForm {
   enrollment = {
     studentName: '',
     studentEmail: '',
-    courseId: null as number|null,
+    courseId: null as number | null,
     preferredSemester: null,
     agreeToTerms: false,
-  }
+  };
   onSubmit(form: NgForm) {
     console.log(form.valid);
     console.log(form.value);
+    this.submitted = true;
+  }
+  submitted = false;
+  resetForm(form: NgForm) {
+    form.resetForm();
+    this.submitted = false;
   }
 }

@@ -7,7 +7,21 @@
       type="text"
       name="studentName"
       [(ngModel)]="enrollment.studentName"
-      required>
+      #nameCtrl="ngModel"
+      required
+      minlength="3"
+    >
+    @if (nameCtrl.touched && nameCtrl.errors?.['required']) {
+      <span class="error">
+        Name is required
+      </span>
+    }
+
+    @if (nameCtrl.touched && nameCtrl.errors?.['minlength']) {
+      <span class="error">
+        Name must be at least 3 characters
+      </span>
+    }
   </div>
   <br>
   <div>
@@ -16,7 +30,20 @@
       type="email"
       name="studentEmail"
       [(ngModel)]="enrollment.studentEmail"
-      required>
+      #emailCtrl="ngModel"
+      required
+      email
+    >
+    @if (emailCtrl.touched && emailCtrl.errors?.['required']) {
+      <span class="error">
+        Email is required
+      </span>
+    }
+    @if (emailCtrl.touched && emailCtrl.errors?.['email']) {
+      <span class="error">
+        Enter a valid email
+      </span>
+    }
   </div>
   <br>
   <div>
@@ -25,12 +52,17 @@
       type="number"
       name="courseId"
       [(ngModel)]="enrollment.courseId"
+      #courseCtrl="ngModel"
       required>
+    @if (courseCtrl.touched && courseCtrl.errors?.['required']) {
+      <span class="error">
+        Course ID is required
+      </span>
+    }
   </div>
   <br>
   <div>
     <label>Semester: </label>
-
     <select
       name="preferredSemester"
       [(ngModel)]="enrollment.preferredSemester"
@@ -38,7 +70,6 @@
       <option value="">Select Semester</option>
       <option value="Odd">Odd</option>
       <option value="Even">Even</option>
-
     </select>
   </div>
   <br>
@@ -48,9 +79,20 @@
         type="checkbox"
         name="agreeToTerms"
         [(ngModel)]="enrollment.agreeToTerms"
+        #termsCtrl="ngModel"
         required>
       Agree to Terms
     </label>
+    <button
+      type="button"
+      (click)="enrollForm.resetForm()">
+      Reset
+    </button>
+    @if (termsCtrl.touched && termsCtrl.errors?.['required']) {
+      <span class="error">
+        You must agree to the terms
+      </span>
+    }
   </div>
   <br>
   <button
@@ -59,3 +101,8 @@
     Submit
   </button>
 </form>
+@if (submitted) {
+  <div class="success">
+    Enrollment request submitted successfully!
+  </div>
+}
