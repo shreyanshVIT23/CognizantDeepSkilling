@@ -8,11 +8,23 @@
   <div>
     <label>Email</label>
     <input type="email" formControlName="studentEmail" />
+    @if (enrollForm.get('studentEmail')?.pending) {
+      <span> Checking email... </span>
+    }
+    @if (enrollForm.get('studentEmail')?.errors?.['emailTaken']) {
+      <span class="error"> Email already taken </span>
+    }
   </div>
   <br />
   <div>
     <label>Course ID</label>
-    <input type="number" formControlName="courseId" />
+    <input type="text" formControlName="courseId" />
+    @if (enrollForm.get('courseId')?.errors?.['required'] && enrollForm.get('courseId')?.touched) {
+      <span class="error"> Course ID is required </span>
+    }
+    @if (enrollForm.get('courseId')?.errors?.['noCourseCode']) {
+      <span class="error"> Course code starting with XX is not allowed. </span>
+    }
   </div>
   <br />
   <div>
@@ -30,5 +42,13 @@
     </label>
   </div>
   <br />
+  <button type="button" (click)="addCourse()">Add Another Course</button>
+  <br />
+  @for (ctrl of additionalCourses.controls; track $index) {
+    <div>
+      <input [formControl]="ctrl" />
+      <button type="button" (click)="removeCourse($index)">Remove</button>
+    </div>
+  }
   <button type="submit" [disabled]="enrollForm.invalid">Submit</button>
 </form>
