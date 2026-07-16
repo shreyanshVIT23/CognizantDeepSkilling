@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
+import { HighlightDirective } from '../../directives/highlight';
+import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
 
 @Component({
   selector: 'app-course-card',
-  imports: [NgClass, NgStyle],
+  standalone: true,
+  imports: [NgClass, NgStyle, HighlightDirective, CreditLabelPipe],
   templateUrl: './course-card.html',
   styleUrl: './course-card.css',
 })
@@ -19,7 +22,7 @@ export class CourseCard implements OnChanges {
   get cardClasses() {
     return {
       'card--enrolled': this.course.enrolled,
-      'card--full': this.course.credits >= 4,
+      'card--full': (this.course.credits ?? 0) >= 4,
       expanded: this.isExpanded,
     };
   }
@@ -44,7 +47,7 @@ export class CourseCard implements OnChanges {
     id: number;
     name: string;
     code: string;
-    credits: number;
+    credits: number | null;
     gradeStatus: string;
     enrolled: boolean;
   };
