@@ -19,7 +19,8 @@ export class CourseCard implements OnChanges {
     name: string;
     code: string;
     credits: number;
-  } ;
+    gradeStatus: string;
+  };
   @Output()
   enrollRequested = new EventEmitter<number>();
 }

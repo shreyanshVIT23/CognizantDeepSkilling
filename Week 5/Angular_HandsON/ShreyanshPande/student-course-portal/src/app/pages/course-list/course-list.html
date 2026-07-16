@@ -1,10 +1,20 @@
 <h1>Available Courses</h1>
-@for (c of courses; track c.id) {
-  <app-course-card
-    [course]="c"
-    (enrollRequested)="onEnroll($event)">
-  </app-course-card>
+@if (isLoading()) {
+  <p>Loading Courses</p>
+} @else {
+  @if (courses.length !== 0) {
+    @for (c of courses; track c.id) {
+      <app-course-card
+        [course]="c"
+        (enrollRequested)="onEnroll($event)">
+      </app-course-card>
+      }
+    }
+  @else {
+    <p>No courses available at the moment</p>
+  }
 }
+
 @if (selectedCourseId !== null) {
   <p>
     Selected course ID: {{ selectedCourseId }}

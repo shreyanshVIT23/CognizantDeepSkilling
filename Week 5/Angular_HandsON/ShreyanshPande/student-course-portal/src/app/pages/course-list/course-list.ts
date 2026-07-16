@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { CourseCard } from '../../components/course-card/course-card';
 
 @Component({
@@ -7,13 +7,20 @@ import { CourseCard } from '../../components/course-card/course-card';
   templateUrl: './course-list.html',
   styleUrl: './course-list.css',
 })
-export class CourseList {
+export class CourseList implements OnInit {
+  isLoading = signal(true);
+  ngOnInit() {
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 1500);
+  }
   courses = [
     {
       id: 1,
       name: 'Angular',
       code: 'CS301',
       credits: 4,
+      gradeStatus: 'passed',
     },
 
     {
@@ -21,6 +28,7 @@ export class CourseList {
       name: 'Python',
       code: 'CS302',
       credits: 3,
+      gradeStatus: 'failed',
     },
 
     {
@@ -28,6 +36,7 @@ export class CourseList {
       name: 'Machine Learning',
       code: 'CS401',
       credits: 5,
+      gradeStatus: 'pending',
     },
 
     {
@@ -35,6 +44,7 @@ export class CourseList {
       name: 'Database Systems',
       code: 'CS205',
       credits: 4,
+      gradeStatus: 'pending',
     },
 
     {
@@ -42,6 +52,7 @@ export class CourseList {
       name: 'Operating Systems',
       code: 'CS303',
       credits: 4,
+      gradeStatus: 'passed',
     },
   ];
   selectedCourseId: number | null = null;

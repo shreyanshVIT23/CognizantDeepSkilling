@@ -7,4 +7,21 @@
     (click)="enrollRequested.emit(course.id)">
     Enroll
   </button>
+  @switch (course.gradeStatus) {
+    @case ('passed') {
+      <span class="passed">
+        Passed
+      </span>
+    }
+    @case ('failed') {
+      <span class="failed">
+        Failed
+      </span>
+    }
+    @case ('pending') {
+      <span class="pending">
+        Pending
+      </span>
+    }
+  }
 </div>

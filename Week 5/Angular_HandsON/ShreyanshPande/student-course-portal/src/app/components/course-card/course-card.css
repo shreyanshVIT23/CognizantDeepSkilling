@@ -1,0 +1,17 @@
+.passed {
+  background: green;
+  color: white;
+  padding: 4px 8px;
+}
+
+.failed {
+  background: red;
+  color: white;
+  padding: 4px 8px;
+}
+
+.pending {
+  background: gray;
+  color: white;
+  padding: 4px 8px;
+}
