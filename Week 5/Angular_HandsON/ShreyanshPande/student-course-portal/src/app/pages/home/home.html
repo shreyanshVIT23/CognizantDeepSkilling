@@ -1,9 +1,40 @@
-<h1>Welcome to the Student Course Portal</h1>
+<h1>{{ portalName }}</h1>
 
 <p>
   This portal allows students to browse courses, enroll in classes,
-  and view their academic profile.
+  and manage their academic profile.
 </p>
+
+<!-- Property Binding -->
+<button
+  [disabled]="!isPortalActive"
+  (click)="onEnrollClick()">
+  Enroll Now
+</button>
+
+<!-- Event Binding Result -->
+<p>{{ message }}</p>
+
+<hr>
+
+<h3>Course Search</h3>
+
+<!--
+[property] = One-way binding (Component → DOM)
+
+[(ngModel)] = Two-way binding (DOM ↔ Component)
+Changes in the UI update the component property,
+and changes in the component property update the UI.
+-->
+
+<input
+  type="text"
+  [(ngModel)]="searchTerm"
+  placeholder="Search courses">
+
+<p>Searching for: {{ searchTerm }}</p>
+
+<hr>
 
 <div class="stats">
   <div class="card">
