@@ -1,1 +1,34 @@
-<p>reactive-enrollment-form works!</p>
+<h2>Reactive Enrollment Form</h2>
+<form [formGroup]="enrollForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name</label>
+    <input type="text" formControlName="studentName" />
+  </div>
+  <br />
+  <div>
+    <label>Email</label>
+    <input type="email" formControlName="studentEmail" />
+  </div>
+  <br />
+  <div>
+    <label>Course ID</label>
+    <input type="number" formControlName="courseId" />
+  </div>
+  <br />
+  <div>
+    <label>Semester</label>
+    <select formControlName="preferredSemester">
+      <option value="Odd">Odd</option>
+      <option value="Even">Even</option>
+    </select>
+  </div>
+  <br />
+  <div>
+    <label>
+      <input type="checkbox" formControlName="agreeToTerms" />
+      Agree to Terms
+    </label>
+  </div>
+  <br />
+  <button type="submit" [disabled]="enrollForm.invalid">Submit</button>
+</form>
