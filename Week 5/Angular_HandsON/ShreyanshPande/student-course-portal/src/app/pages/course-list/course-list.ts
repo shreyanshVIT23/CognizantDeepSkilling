@@ -21,6 +21,7 @@ export class CourseList implements OnInit {
       code: 'CS301',
       credits: 4,
       gradeStatus: 'passed',
+      enrolled: false,
     },
 
     {
@@ -29,6 +30,7 @@ export class CourseList implements OnInit {
       code: 'CS302',
       credits: 3,
       gradeStatus: 'failed',
+      enrolled: false,
     },
 
     {
@@ -37,6 +39,7 @@ export class CourseList implements OnInit {
       code: 'CS401',
       credits: 5,
       gradeStatus: 'pending',
+      enrolled: false,
     },
 
     {
@@ -45,6 +48,7 @@ export class CourseList implements OnInit {
       code: 'CS205',
       credits: 4,
       gradeStatus: 'pending',
+      enrolled: false,
     },
 
     {
@@ -53,13 +57,16 @@ export class CourseList implements OnInit {
       code: 'CS303',
       credits: 4,
       gradeStatus: 'passed',
+      enrolled: false,
     },
   ];
   selectedCourseId: number | null = null;
 
   onEnroll(courseId: number) {
-    console.log('Enrolling in course: ' + courseId);
-
     this.selectedCourseId = courseId;
+    const course = this.courses.find((c) => c.id === courseId);
+    if (course) {
+      course.enrolled = true;
+    }
   }
 }

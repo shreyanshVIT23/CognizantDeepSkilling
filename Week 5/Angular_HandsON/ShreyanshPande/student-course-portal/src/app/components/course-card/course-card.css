@@ -15,3 +15,15 @@
   color: white;
   padding: 4px 8px;
 }
+
+.card--enrolled {
+  background-color: #dff6dd;
+}
+
+.card--full {
+  border: 2px solid orange;
+}
+
+.expanded {
+  min-height: 250px;
+}
