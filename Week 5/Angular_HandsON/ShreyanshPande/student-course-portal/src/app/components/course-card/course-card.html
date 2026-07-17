@@ -1,44 +1,50 @@
-<div class="card" [appHighlight]="'lightblue'" [ngClass]="cardClasses" [ngStyle]="borderStyles">
-  <h2>{{ course?.name }}</h2>
-  <button (click)="toggleDetails(); $event.stopPropagation()">
-    {{ isExpanded ? 'Hide Details' : 'Show Details' }}
-  </button>
-  @if (isExpanded) {
-    <p><strong>ID:</strong> {{ course?.id }}</p>
-    <p><strong>Code:</strong> {{ course?.code }}</p>
-    <p>
-      <strong>Credits:</strong>
-      {{ course?.credits | creditLabel }}
-    </p>
-    <button (click)="toggleEnrollment(); $event.stopPropagation()">
-      {{ isEnrolled ? 'Unenroll' : 'Enroll' }}
+@if (enrolledCourseIds$ | async; as enrolledIds) {
+  <div class="card" [appHighlight]="'lightblue'" [ngClass]="{
+    'card--enrolled': course && enrolledIds.includes(course.id),
+    'card--full': (course?.credits ?? 0) >= 4,
+    expanded: isExpanded
+  }" [ngStyle]="borderStyles">
+    <h2>{{ course?.name }}</h2>
+    <button (click)="toggleDetails(); $event.stopPropagation()">
+      {{ isExpanded ? 'Hide Details' : 'Show Details' }}
     </button>
-    <button
-      (click)="deleteCourse(); $event.stopPropagation()"
-      style="
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        margin-left: 8px;
-        border-radius: 4px;
-        cursor: pointer;
-      "
-    >
-      Delete
-    </button>
-    @if (course) {
-      @switch (course.gradeStatus) {
-        @case ('passed') {
-          <span class="passed"> Passed </span>
-        }
-        @case ('failed') {
-          <span class="failed"> Failed </span>
-        }
-        @case ('pending') {
-          <span class="pending"> Pending </span>
+    @if (isExpanded) {
+      <p><strong>ID:</strong> {{ course?.id }}</p>
+      <p><strong>Code:</strong> {{ course?.code }}</p>
+      <p>
+        <strong>Credits:</strong>
+        {{ course?.credits | creditLabel }}
+      </p>
+      <button (click)="toggleEnrollment(enrolledIds); $event.stopPropagation()">
+        {{ course && enrolledIds.includes(course.id) ? 'Unenroll' : 'Enroll' }}
+      </button>
+      <button
+        (click)="deleteCourse(); $event.stopPropagation()"
+        style="
+          background-color: #dc3545;
+          color: white;
+          border: none;
+          padding: 6px 12px;
+          margin-left: 8px;
+          border-radius: 4px;
+          cursor: pointer;
+        "
+      >
+        Delete
+      </button>
+      @if (course) {
+        @switch (course.gradeStatus) {
+          @case ('passed') {
+            <span class="passed"> Passed </span>
+          }
+          @case ('failed') {
+            <span class="failed"> Failed </span>
+          }
+          @case ('pending') {
+            <span class="pending"> Pending </span>
+          }
         }
       }
     }
-  }
-</div>
+  </div>
+}

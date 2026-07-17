@@ -1,21 +1,28 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CourseService } from '../../services/course';
 import { CourseSummaryWidget } from '../../components/course-summary-widget/course-summary-widget';
 import { NotificationComponent } from '../../components/notification/notification';
-import { EnrollmentService } from '../../services/enrollment';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { selectCourses } from '../../store/course/course.selectors';
+import { selectEnrolledCourseIds } from '../../store/enrollment/enrollment.selectors';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, CourseSummaryWidget, NotificationComponent],
+  imports: [FormsModule, CourseSummaryWidget, NotificationComponent, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit, OnDestroy {
-  constructor(
-    private courseService: CourseService,
-    private enrollmentService: EnrollmentService,
-  ) {}
+  coursesCount$: Observable<number>;
+  enrolledCount$: Observable<number>;
+
+  constructor(private store: Store) {
+    this.coursesCount$ = this.store.select(selectCourses).pipe(map((courses) => courses.length));
+    this.enrolledCount$ = this.store.select(selectEnrolledCourseIds).pipe(map((ids) => ids.length));
+  }
 
   ngOnDestroy(): void {
     console.log('Home component destroyed');
@@ -23,12 +30,7 @@ export class Home implements OnInit, OnDestroy {
   ngOnInit(): void {
     console.log('Home component initialized');
   }
-  get courseAvailable(): number {
-    return this.courseService.courses().length;
-  }
-  get enrolledCount(): number {
-    return this.enrollmentService.getEnrolledCourses().length;
-  }
+
   portalName = 'Student Course Portal';
   isPortalActive = true;
   message = '';

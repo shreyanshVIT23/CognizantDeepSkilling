@@ -32,12 +32,12 @@ and changes in the component property update the UI.
 <div class="stats">
   <div class="card">
     <h3>Courses Available</h3>
-    <p>{{ courseAvailable }}</p>
+    <p>{{ coursesCount$ | async }}</p>
   </div>
 
   <div class="card">
     <h3>Enrolled</h3>
-    <p>{{ enrolledCount }}</p>
+    <p>{{ enrolledCount$ | async }}</p>
   </div>
 
   <div class="card">

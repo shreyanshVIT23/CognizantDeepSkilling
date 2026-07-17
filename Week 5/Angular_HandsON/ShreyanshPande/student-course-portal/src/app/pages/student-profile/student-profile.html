@@ -1,14 +1,16 @@
-<h2>Enrolled Courses</h2>
+@if (enrolledCourses$ | async; as enrolledCourses) {
+  <h2>Enrolled Courses</h2>
 
-@if (enrolledCourses.length === 0) {
-  <p>No enrolled courses.</p>
-} @else {
-  <ul>
-    @for (course of enrolledCourses; track course.id) {
-      <li>
-        {{ course.name }}
-        ({{ course.code }})
-      </li>
-    }
-  </ul>
+  @if (enrolledCourses.length === 0) {
+    <p>No enrolled courses.</p>
+  } @else {
+    <ul>
+      @for (course of enrolledCourses; track course.id) {
+        <li>
+          {{ course.name }}
+          ({{ course.code }})
+        </li>
+      }
+    </ul>
+  }
 }

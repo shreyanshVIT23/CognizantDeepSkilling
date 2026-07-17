@@ -94,6 +94,10 @@ export class EnrollmentService {
     return this.http.get<any[]>(`${this.apiUrl}?courseId=${courseId}`);
   }
 
+  getEnrollments(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
   getEnrolledCourses(): Course[] {
     const ids = this.enrolledCourseIds();
     return this.courseService.courses().filter((c) => ids.includes(c.id));

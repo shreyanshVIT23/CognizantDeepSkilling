@@ -1,6 +1,6 @@
 <h1>Available Courses</h1>
 
-@if (errorMessage) {
+@if (errorMessage$ | async; as error) {
   <div
     class="error-banner"
     style="
@@ -12,7 +12,7 @@
       border-radius: 4px;
     "
   >
-    {{ errorMessage }}
+    {{ error }}
   </div>
 }
 
@@ -26,20 +26,22 @@
   />
 </div>
 
-@if (isLoading()) {
+@if (isLoading$ | async) {
   <p>Loading Courses</p>
 } @else {
-  <h3>Courses Available: {{ filteredCourses.length }}</h3>
-  @if (filteredCourses.length !== 0) {
-    <div class="courses-grid">
-      @for (c of filteredCourses; track c.id) {
-        <div (click)="viewCourse(c.id)" class="card-wrapper" style="cursor: pointer">
-          <app-course-card [course]="c" (courseDeleted)="onCourseDeleted($event)">
-          </app-course-card>
-        </div>
-      }
-    </div>
-  } @else {
-    <p>No courses match your search criteria</p>
+  @if (filteredCourses$ | async; as courses) {
+    <h3>Courses Available: {{ courses.length }}</h3>
+    @if (courses.length !== 0) {
+      <div class="courses-grid">
+        @for (c of courses; track c.id) {
+          <div (click)="viewCourse(c.id)" class="card-wrapper" style="cursor: pointer">
+            <app-course-card [course]="c" (courseDeleted)="onCourseDeleted($event)">
+            </app-course-card>
+          </div>
+        }
+      </div>
+    } @else {
+      <p>No courses match your search criteria</p>
+    }
   }
 }

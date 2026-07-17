@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
-import { EnrollmentService } from '../../services/enrollment';
 import { Course } from '../../models/course.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectEnrolledCourses } from '../../store/enrollment/enrollment.selectors';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-student-profile',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './student-profile.html',
   styleUrl: './student-profile.css',
 })
 export class StudentProfile {
-  constructor(public enrollmentService: EnrollmentService) {}
+  enrolledCourses$: Observable<Course[]>;
 
-  get enrolledCourses(): Course[] {
-    return this.enrollmentService.getEnrolledCourses();
+  constructor(private store: Store) {
+    this.enrolledCourses$ = this.store.select(selectEnrolledCourses);
   }
 }
