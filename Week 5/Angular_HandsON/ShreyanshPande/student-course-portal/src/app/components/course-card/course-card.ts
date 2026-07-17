@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 import { HighlightDirective } from '../../directives/highlight';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
@@ -26,7 +26,7 @@ export class CourseCard implements OnChanges {
   get cardClasses() {
     return {
       'card--enrolled': this.isEnrolled,
-      'card--full': (this.course.credits ?? 0) >= 4,
+      'card--full': (this.course?.credits ?? 0) >= 4,
       expanded: this.isExpanded,
     };
   }
@@ -36,6 +36,7 @@ export class CourseCard implements OnChanges {
     };
   }
   get borderColor() {
+    if (!this.course) return 'grey';
     switch (this.course.gradeStatus) {
       case 'passed':
         return 'green';
@@ -49,15 +50,30 @@ export class CourseCard implements OnChanges {
   @Input()
   course!: Course;
 
+  @Output()
+  courseDeleted = new EventEmitter<number>();
+
   toggleEnrollment() {
+    if (!this.course) return;
     if (this.enrollmentService.isEnrolled(this.course.id)) {
-      this.enrollmentService.unenroll(this.course.id);
+      this.enrollmentService.unenroll(this.course.id).subscribe({
+        error: (err) => console.error('Failed to unenroll:', err),
+      });
     } else {
-      this.enrollmentService.enroll(this.course.id);
+      this.enrollmentService.enroll(this.course.id).subscribe({
+        error: (err) => console.error('Failed to enroll:', err),
+      });
+    }
+  }
+
+  deleteCourse() {
+    if (!this.course) return;
+    if (confirm(`Are you sure you want to delete "${this.course.name}"?`)) {
+      this.courseDeleted.emit(this.course.id);
     }
   }
 
   get isEnrolled() {
-    return this.enrollmentService.isEnrolled(this.course.id);
+    return this.course ? this.enrollmentService.isEnrolled(this.course.id) : false;
   }
 }

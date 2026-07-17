@@ -13,20 +13,29 @@ export class CourseSummaryWidget {
   constructor(protected courseService: CourseService) {}
 
   get courses(): Course[] {
-    return this.courseService.getCourses();
+    return this.courseService.courses();
   }
 
   addQuickCourse(): void {
-    const nextId = this.courses.length + 1;
+    const maxId = this.courses.reduce((max, c) => {
+      const cid = Number(c.id);
+      return !isNaN(cid) && cid > max ? cid : max;
+    }, 0);
+    const nextId = maxId + 1;
+    const nextCodeNum = 300 + nextId;
     const newCourse: Course = {
       id: nextId,
       name: `New Course ${nextId}`,
-      code: `CS${300 + nextId}`,
+      code: `CS${nextCodeNum}`,
       credits: Math.floor(Math.random() * 5) + 1,
       gradeStatus: 'pending',
       enrolled: false,
     };
-    this.courseService.addCourse(newCourse);
-    console.log('Added course via widget:', newCourse);
+    this.courseService.createCourse(newCourse).subscribe({
+      next: (course) => {
+        console.log('Added course via widget:', course);
+      },
+      error: (err) => console.error('Failed to add quick course:', err),
+    });
   }
 }

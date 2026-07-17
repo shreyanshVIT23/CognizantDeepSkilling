@@ -36,9 +36,7 @@ export const routes: Routes = [
     path: 'enroll',
     canActivate: [authGuard],
     loadChildren: () =>
-      import('./features/enrollment/enrollment.routes').then(
-        (m) => m.ENROLLMENT_ROUTES
-      ),
+      import('./features/enrollment/enrollment.routes').then((m) => m.ENROLLMENT_ROUTES),
   },
   {
     path: '**',

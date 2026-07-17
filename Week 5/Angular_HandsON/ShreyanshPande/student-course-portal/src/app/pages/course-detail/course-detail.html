@@ -5,7 +5,11 @@
       <p><strong>ID:</strong> {{ course.id }}</p>
       <p><strong>Code:</strong> {{ course.code }}</p>
       <p><strong>Credits:</strong> {{ course.credits ?? 'No Credits' }}</p>
-      <p><strong>Status:</strong> <span class="status-badge" [class]="course.gradeStatus">{{ course.gradeStatus }}</span></p>
+      <p>
+        <strong>Status:</strong>
+        <span class="status-badge" [class]="course.gradeStatus">{{ course.gradeStatus }}</span>
+      </p>
+      <p><strong>Enrolled Students:</strong> {{ enrolledStudentsCount }}</p>
     </div>
   } @else {
     <h2>Course not found</h2>

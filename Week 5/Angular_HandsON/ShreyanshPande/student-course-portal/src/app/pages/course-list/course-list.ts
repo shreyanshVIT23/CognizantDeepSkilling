@@ -16,19 +16,45 @@ export class CourseList implements OnInit {
   isLoading = signal(true);
   courses: Course[] = [];
   searchTerm = '';
+  errorMessage = '';
 
   constructor(
     protected courseService: CourseService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.isLoading.set(false);
-    }, 1500);
-    this.courses = this.courseService.getCourses();
+    this.loadCourses();
     this.searchTerm = this.route.snapshot.queryParamMap.get('search') ?? '';
+  }
+
+  loadCourses() {
+    this.isLoading.set(true);
+    this.courseService.getCourses().subscribe({
+      next: (courses) => {
+        this.courses = courses;
+        this.errorMessage = '';
+      },
+      error: (err) => {
+        this.errorMessage = err.message || 'An error occurred while loading courses.';
+        this.isLoading.set(false);
+      },
+      complete: () => {
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  onCourseDeleted(id: number) {
+    this.courseService.deleteCourse(id).subscribe({
+      next: () => {
+        this.loadCourses();
+      },
+      error: (err) => {
+        this.errorMessage = err.message || 'An error occurred while deleting the course.';
+      },
+    });
   }
 
   viewCourse(id: number) {
@@ -50,9 +76,7 @@ export class CourseList implements OnInit {
     }
     const term = this.searchTerm.toLowerCase();
     return this.courses.filter(
-      (c) =>
-        c.name.toLowerCase().includes(term) ||
-        c.code.toLowerCase().includes(term)
+      (c) => c.name.toLowerCase().includes(term) || c.code.toLowerCase().includes(term),
     );
   }
 }

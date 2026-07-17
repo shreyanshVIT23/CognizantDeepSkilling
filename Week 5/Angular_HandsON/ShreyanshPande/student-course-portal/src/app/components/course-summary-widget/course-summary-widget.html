@@ -1,6 +1,8 @@
 <div class="widget-container">
   <h3>Course Summary Widget</h3>
-  <p class="widget-count">Total Courses Managed: <strong>{{ courses.length }}</strong></p>
+  <p class="widget-count">
+    Total Courses Managed: <strong>{{ courses.length }}</strong>
+  </p>
   <ul class="widget-list">
     @for (course of courses; track course.id) {
       <li class="widget-item">

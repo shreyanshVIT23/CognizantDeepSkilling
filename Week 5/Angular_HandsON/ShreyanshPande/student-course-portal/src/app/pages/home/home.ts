@@ -14,17 +14,17 @@ import { EnrollmentService } from '../../services/enrollment';
 export class Home implements OnInit, OnDestroy {
   constructor(
     private courseService: CourseService,
-    private enrollmentService: EnrollmentService
+    private enrollmentService: EnrollmentService,
   ) {}
 
   ngOnDestroy(): void {
-    console.log("Home component destroyed");
+    console.log('Home component destroyed');
   }
   ngOnInit(): void {
     console.log('Home component initialized');
   }
   get courseAvailable(): number {
-    return this.courseService.getCourses().length;
+    return this.courseService.courses().length;
   }
   get enrolledCount(): number {
     return this.enrollmentService.getEnrolledCourses().length;

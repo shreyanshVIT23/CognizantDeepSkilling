@@ -10,20 +10,16 @@
       #nameCtrl="ngModel"
       required
       minlength="3"
-    >
+    />
     @if (nameCtrl.touched && nameCtrl.errors?.['required']) {
-      <span class="error">
-        Name is required
-      </span>
+      <span class="error"> Name is required </span>
     }
 
     @if (nameCtrl.touched && nameCtrl.errors?.['minlength']) {
-      <span class="error">
-        Name must be at least 3 characters
-      </span>
+      <span class="error"> Name must be at least 3 characters </span>
     }
   </div>
-  <br>
+  <br />
   <div>
     <label>Email: </label>
     <input
@@ -33,19 +29,15 @@
       #emailCtrl="ngModel"
       required
       email
-    >
+    />
     @if (emailCtrl.touched && emailCtrl.errors?.['required']) {
-      <span class="error">
-        Email is required
-      </span>
+      <span class="error"> Email is required </span>
     }
     @if (emailCtrl.touched && emailCtrl.errors?.['email']) {
-      <span class="error">
-        Enter a valid email
-      </span>
+      <span class="error"> Enter a valid email </span>
     }
   </div>
-  <br>
+  <br />
   <div>
     <label>Course ID: </label>
     <input
@@ -53,26 +45,22 @@
       name="courseId"
       [(ngModel)]="enrollment.courseId"
       #courseCtrl="ngModel"
-      required>
+      required
+    />
     @if (courseCtrl.touched && courseCtrl.errors?.['required']) {
-      <span class="error">
-        Course ID is required
-      </span>
+      <span class="error"> Course ID is required </span>
     }
   </div>
-  <br>
+  <br />
   <div>
     <label>Semester: </label>
-    <select
-      name="preferredSemester"
-      [(ngModel)]="enrollment.preferredSemester"
-      required>
+    <select name="preferredSemester" [(ngModel)]="enrollment.preferredSemester" required>
       <option value="">Select Semester</option>
       <option value="Odd">Odd</option>
       <option value="Even">Even</option>
     </select>
   </div>
-  <br>
+  <br />
   <div>
     <label>
       <input
@@ -80,29 +68,18 @@
         name="agreeToTerms"
         [(ngModel)]="enrollment.agreeToTerms"
         #termsCtrl="ngModel"
-        required>
+        required
+      />
       Agree to Terms
     </label>
-    <button
-      type="button"
-      (click)="enrollForm.resetForm()">
-      Reset
-    </button>
+    <button type="button" (click)="enrollForm.resetForm()">Reset</button>
     @if (termsCtrl.touched && termsCtrl.errors?.['required']) {
-      <span class="error">
-        You must agree to the terms
-      </span>
+      <span class="error"> You must agree to the terms </span>
     }
   </div>
-  <br>
-  <button
-    type="submit"
-    [disabled]="enrollForm.invalid">
-    Submit
-  </button>
+  <br />
+  <button type="submit" [disabled]="enrollForm.invalid">Submit</button>
 </form>
 @if (submitted) {
-  <div class="success">
-    Enrollment request submitted successfully!
-  </div>
+  <div class="success">Enrollment request submitted successfully!</div>
 }

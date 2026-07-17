@@ -1,21 +1,17 @@
 <h1>{{ portalName }}</h1>
 
 <p>
-  This portal allows students to browse courses, enroll in classes,
-  and manage their academic profile.
+  This portal allows students to browse courses, enroll in classes, and manage their academic
+  profile.
 </p>
 
 <!-- Property Binding -->
-<button
-  [disabled]="!isPortalActive"
-  (click)="onEnrollClick()">
-  Enroll Now
-</button>
+<button [disabled]="!isPortalActive" (click)="onEnrollClick()">Enroll Now</button>
 
 <!-- Event Binding Result -->
 <p>{{ message }}</p>
 
-<hr>
+<hr />
 
 <h3>Course Search</h3>
 
@@ -27,24 +23,21 @@ Changes in the UI update the component property,
 and changes in the component property update the UI.
 -->
 
-<input
-  type="text"
-  [(ngModel)]="searchTerm"
-  placeholder="Search courses">
+<input type="text" [(ngModel)]="searchTerm" placeholder="Search courses" />
 
 <p>Searching for: {{ searchTerm }}</p>
 
-<hr>
+<hr />
 
 <div class="stats">
   <div class="card">
     <h3>Courses Available</h3>
-    <p>{{courseAvailable}}</p>
+    <p>{{ courseAvailable }}</p>
   </div>
 
   <div class="card">
     <h3>Enrolled</h3>
-    <p>{{enrolledCount}}</p>
+    <p>{{ enrolledCount }}</p>
   </div>
 
   <div class="card">
@@ -53,20 +46,21 @@ and changes in the component property update the UI.
   </div>
 </div>
 
-<hr>
+<hr />
 
 <app-course-summary-widget></app-course-summary-widget>
 
-<hr>
+<hr />
 
 <h3>Hierarchical DI Demonstration (Notification Widget)</h3>
 <p>
   Each of the notification panels below is an instance of <code>NotificationComponent</code>.
-  Because the <code>NotificationService</code> is configured in the component's <code>providers</code> array rather than the root injector, 
-  each component receives its own isolated instance. Messages added to one will not appear in the other.
+  Because the <code>NotificationService</code> is configured in the component's
+  <code>providers</code> array rather than the root injector, each component receives its own
+  isolated instance. Messages added to one will not appear in the other.
 </p>
 
-<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+<div style="display: flex; gap: 20px; flex-wrap: wrap">
   <app-notification></app-notification>
   <app-notification></app-notification>
 </div>

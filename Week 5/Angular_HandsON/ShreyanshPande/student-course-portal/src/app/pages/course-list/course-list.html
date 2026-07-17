@@ -1,5 +1,21 @@
 <h1>Available Courses</h1>
 
+@if (errorMessage) {
+  <div
+    class="error-banner"
+    style="
+      color: #721c24;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+    "
+  >
+    {{ errorMessage }}
+  </div>
+}
+
 <div class="search-container">
   <input
     type="text"
@@ -13,13 +29,12 @@
 @if (isLoading()) {
   <p>Loading Courses</p>
 } @else {
-  <h3>Courses Available: {{filteredCourses.length}}</h3>
+  <h3>Courses Available: {{ filteredCourses.length }}</h3>
   @if (filteredCourses.length !== 0) {
     <div class="courses-grid">
       @for (c of filteredCourses; track c.id) {
-        <div (click)="viewCourse(c.id)" class="card-wrapper" style="cursor: pointer;">
-          <app-course-card
-            [course]="c">
+        <div (click)="viewCourse(c.id)" class="card-wrapper" style="cursor: pointer">
+          <app-course-card [course]="c" (courseDeleted)="onCourseDeleted($event)">
           </app-course-card>
         </div>
       }
@@ -28,4 +43,3 @@
     <p>No courses match your search criteria</p>
   }
 }
-
