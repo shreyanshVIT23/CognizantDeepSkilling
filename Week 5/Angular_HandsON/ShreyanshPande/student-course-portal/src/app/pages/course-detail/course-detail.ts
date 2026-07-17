@@ -21,8 +21,8 @@ export class CourseDetail implements OnInit {
     private route: ActivatedRoute,
     private courseService: CourseService,
     private enrollmentService: EnrollmentService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     // Task 87: Use switchMap to chain dependent requests.
@@ -34,23 +34,27 @@ export class CourseDetail implements OnInit {
     // different items, older requests could complete later than newer ones due to network latency,
     // thereby overwriting newer and correct results with outdated data (race conditions).
     // switchMap prevents this by unsubscribing from the previous inner Observable whenever a new outer value emits.
-    this.route.paramMap.pipe(
-      map(params => Number(params.get('id'))),
-      switchMap(id => forkJoin({
-        course: this.courseService.getCourseById(id),
-        enrollments: this.enrollmentService.getEnrollmentsByCourseId(id)
-      }))
-    ).subscribe({
-      next: ({ course, enrollments }) => {
-        this.course = course;
-        this.enrolledStudentsCount = enrollments.length;
-        console.log('Course details loaded:', course);
-        console.log('Enrollments loaded:', enrollments);
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error fetching course and enrollments in CourseDetail:', err);
-      },
-    });
+    this.route.paramMap
+      .pipe(
+        map((params) => Number(params.get('id'))),
+        switchMap((id) =>
+          forkJoin({
+            course: this.courseService.getCourseById(id),
+            enrollments: this.enrollmentService.getEnrollmentsByCourseId(id),
+          }),
+        ),
+      )
+      .subscribe({
+        next: ({ course, enrollments }) => {
+          this.course = course;
+          this.enrolledStudentsCount = enrollments.length;
+          console.log('Course details loaded:', course);
+          console.log('Enrollments loaded:', enrollments);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error fetching course and enrollments in CourseDetail:', err);
+        },
+      });
   }
 }

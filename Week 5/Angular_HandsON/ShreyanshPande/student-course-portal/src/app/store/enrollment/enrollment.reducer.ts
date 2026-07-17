@@ -50,5 +50,5 @@ export const enrollmentReducer = createReducer(
   on(EnrollmentActions.unenrollFromCourseFailure, (state, { error }) => ({
     ...state,
     error,
-  }))
+  })),
 );

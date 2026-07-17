@@ -1,9 +1,14 @@
 @if (enrolledCourseIds$ | async; as enrolledIds) {
-  <div class="card" [appHighlight]="'lightblue'" [ngClass]="{
-    'card--enrolled': course && enrolledIds.includes(course.id),
-    'card--full': (course?.credits ?? 0) >= 4,
-    expanded: isExpanded
-  }" [ngStyle]="borderStyles">
+  <div
+    class="card"
+    [appHighlight]="'lightblue'"
+    [ngClass]="{
+      'card--enrolled': course && enrolledIds.includes(course.id),
+      'card--full': (course?.credits ?? 0) >= 4,
+      expanded: isExpanded,
+    }"
+    [ngStyle]="borderStyles"
+  >
     <h2>{{ course?.name }}</h2>
     <button (click)="toggleDetails(); $event.stopPropagation()">
       {{ isExpanded ? 'Hide Details' : 'Show Details' }}

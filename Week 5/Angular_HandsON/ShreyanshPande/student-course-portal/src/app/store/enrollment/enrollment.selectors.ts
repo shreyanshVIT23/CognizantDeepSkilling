@@ -6,11 +6,11 @@ export const selectEnrollmentState = createFeatureSelector<EnrollmentState>('enr
 
 export const selectEnrolledCourseIds = createSelector(
   selectEnrollmentState,
-  (state) => state.enrolledCourseIds
+  (state) => state.enrolledCourseIds,
 );
 
 export const selectEnrolledCourses = createSelector(
   selectCourses,
   selectEnrolledCourseIds,
-  (courses, enrolledIds) => courses.filter((c) => enrolledIds.includes(c.id))
+  (courses, enrolledIds) => courses.filter((c) => enrolledIds.includes(c.id)),
 );

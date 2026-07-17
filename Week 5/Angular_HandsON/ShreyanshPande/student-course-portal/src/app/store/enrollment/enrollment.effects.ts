@@ -20,11 +20,15 @@ export class EnrollmentEffects {
             return EnrollmentActions.loadEnrollmentsSuccess({ enrolledCourseIds });
           }),
           catchError((error) =>
-            of(EnrollmentActions.loadEnrollmentsFailure({ error: error.message || 'Failed to load enrollments.' }))
-          )
-        )
-      )
-    )
+            of(
+              EnrollmentActions.loadEnrollmentsFailure({
+                error: error.message || 'Failed to load enrollments.',
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 
   enroll$ = createEffect(() =>
@@ -34,11 +38,15 @@ export class EnrollmentEffects {
         this.enrollmentService.enroll(courseId).pipe(
           map(() => EnrollmentActions.enrollInCourseSuccess({ courseId })),
           catchError((error) =>
-            of(EnrollmentActions.enrollInCourseFailure({ error: error.message || 'Failed to enroll in course.' }))
-          )
-        )
-      )
-    )
+            of(
+              EnrollmentActions.enrollInCourseFailure({
+                error: error.message || 'Failed to enroll in course.',
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 
   unenroll$ = createEffect(() =>
@@ -48,10 +56,14 @@ export class EnrollmentEffects {
         this.enrollmentService.unenroll(courseId).pipe(
           map(() => EnrollmentActions.unenrollFromCourseSuccess({ courseId })),
           catchError((error) =>
-            of(EnrollmentActions.unenrollFromCourseFailure({ error: error.message || 'Failed to unenroll from course.' }))
-          )
-        )
-      )
-    )
+            of(
+              EnrollmentActions.unenrollFromCourseFailure({
+                error: error.message || 'Failed to unenroll from course.',
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 }

@@ -13,6 +13,6 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
     // Turn loading off regardless of success or failure using finalize
     finalize(() => {
       loadingService.hide();
-    })
+    }),
   );
 };

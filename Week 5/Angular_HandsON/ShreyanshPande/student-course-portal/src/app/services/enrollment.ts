@@ -27,7 +27,7 @@ export class EnrollmentService {
   loadEnrollments(): void {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: (enrollments) => {
-        enrollments.forEach(e => {
+        enrollments.forEach((e) => {
           const cid = Number(e.courseId);
           this.enrollmentMap.set(cid, e.id);
         });
@@ -42,16 +42,18 @@ export class EnrollmentService {
       this.enrolledCourseIds.update((ids) => [...ids, courseId]);
     }
     const originalId = this.courseService.getOriginalId(courseId);
-    const patchCourse$ = this.http.patch(`http://localhost:3000/courses/${originalId}`, { enrolled: true });
+    const patchCourse$ = this.http.patch(`http://localhost:3000/courses/${originalId}`, {
+      enrolled: true,
+    });
 
     return forkJoin({
       enrollment: this.http.post<any>(this.apiUrl, { courseId }),
-      course: patchCourse$
+      course: patchCourse$,
     }).pipe(
       tap(({ enrollment }) => {
         this.enrollmentMap.set(courseId, enrollment.id);
-        this.courseService.courses.update(list =>
-          list.map(c => c.id === courseId ? { ...c, enrolled: true } : c)
+        this.courseService.courses.update((list) =>
+          list.map((c) => (c.id === courseId ? { ...c, enrolled: true } : c)),
         );
       }),
       catchError((err) => {
@@ -66,16 +68,18 @@ export class EnrollmentService {
     this.enrolledCourseIds.update((ids) => ids.filter((id) => id !== courseId));
     const enrollmentId = this.enrollmentMap.get(courseId) ?? courseId;
     const originalId = this.courseService.getOriginalId(courseId);
-    const patchCourse$ = this.http.patch(`http://localhost:3000/courses/${originalId}`, { enrolled: false });
+    const patchCourse$ = this.http.patch(`http://localhost:3000/courses/${originalId}`, {
+      enrolled: false,
+    });
 
     return forkJoin({
       enrollment: this.http.delete(`${this.apiUrl}/${enrollmentId}`),
-      course: patchCourse$
+      course: patchCourse$,
     }).pipe(
       tap(() => {
         this.enrollmentMap.delete(courseId);
-        this.courseService.courses.update(list =>
-          list.map(c => c.id === courseId ? { ...c, enrolled: false } : c)
+        this.courseService.courses.update((list) =>
+          list.map((c) => (c.id === courseId ? { ...c, enrolled: false } : c)),
         );
       }),
       catchError((err) => {

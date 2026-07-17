@@ -35,7 +35,16 @@ describe('CourseEffects', () => {
   });
 
   it('should call CourseService getCourses and dispatch loadCoursesSuccess on success', async () => {
-    const mockCourses = [{ id: 1, name: 'Angular', code: 'ANG101', credits: 3, gradeStatus: 'pending' as const, enrolled: false }];
+    const mockCourses = [
+      {
+        id: 1,
+        name: 'Angular',
+        code: 'ANG101',
+        credits: 3,
+        gradeStatus: 'pending' as const,
+        enrolled: false,
+      },
+    ];
     courseServiceSpy.getCourses.mockReturnValue(of(mockCourses));
 
     actions$ = of(CourseActions.loadCourses());

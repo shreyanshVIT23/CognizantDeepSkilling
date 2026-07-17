@@ -8,7 +8,11 @@ import { Store } from '@ngrx/store';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CourseActions } from '../../store/course/course.actions';
-import { selectCourses, selectCourseLoading, selectCourseError } from '../../store/course/course.selectors';
+import {
+  selectCourses,
+  selectCourseLoading,
+  selectCourseError,
+} from '../../store/course/course.selectors';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -43,9 +47,10 @@ export class CourseList implements OnInit {
         }
         const lowerTerm = term.toLowerCase();
         return courses.filter(
-          (c) => c.name.toLowerCase().includes(lowerTerm) || c.code.toLowerCase().includes(lowerTerm),
+          (c) =>
+            c.name.toLowerCase().includes(lowerTerm) || c.code.toLowerCase().includes(lowerTerm),
         );
-      })
+      }),
     );
   }
 
@@ -72,7 +77,7 @@ export class CourseList implements OnInit {
         this.store.dispatch(
           CourseActions.loadCoursesFailure({
             error: err.message || 'An error occurred while deleting the course.',
-          })
+          }),
         );
       },
     });

@@ -12,5 +12,5 @@ export const EnrollmentActions = createActionGroup({
     'Unenroll From Course': props<{ courseId: number }>(),
     'Unenroll From Course Success': props<{ courseId: number }>(),
     'Unenroll From Course Failure': props<{ error: string }>(),
-  }
+  },
 });

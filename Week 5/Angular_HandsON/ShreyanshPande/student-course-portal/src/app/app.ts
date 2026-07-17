@@ -15,7 +15,10 @@ import { selectCourses } from './store/course/course.selectors';
 export class App {
   protected readonly title = signal('student-course-portal');
 
-  constructor(protected loadingService: LoadingService, private store: Store) {
+  constructor(
+    protected loadingService: LoadingService,
+    private store: Store,
+  ) {
     console.log('[NgRx Diagnostic] App component constructor initialized.');
 
     // 1. Log selector updates
@@ -25,7 +28,7 @@ export class App {
       },
       error: (err) => {
         console.error('[NgRx Diagnostic] coursesSelector error:', err);
-      }
+      },
     });
 
     // 2. Dispatch diagnostic test action

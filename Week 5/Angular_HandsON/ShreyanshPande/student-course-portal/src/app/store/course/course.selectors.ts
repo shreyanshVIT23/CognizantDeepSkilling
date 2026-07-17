@@ -3,17 +3,8 @@ import { CourseState } from './course.reducer';
 
 export const selectCourseState = createFeatureSelector<CourseState>('course');
 
-export const selectCourses = createSelector(
-  selectCourseState,
-  (state) => state.courses
-);
+export const selectCourses = createSelector(selectCourseState, (state) => state.courses);
 
-export const selectCourseLoading = createSelector(
-  selectCourseState,
-  (state) => state.loading
-);
+export const selectCourseLoading = createSelector(selectCourseState, (state) => state.loading);
 
-export const selectCourseError = createSelector(
-  selectCourseState,
-  (state) => state.error
-);
+export const selectCourseError = createSelector(selectCourseState, (state) => state.error);

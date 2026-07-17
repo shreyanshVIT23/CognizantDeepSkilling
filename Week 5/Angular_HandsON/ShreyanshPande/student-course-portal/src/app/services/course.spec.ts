@@ -12,11 +12,12 @@ describe('CourseService', () => {
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        provideStore({ course: courseReducer })
+        provideStore({ course: courseReducer }),
       ],
     });
     service = TestBed.inject(CourseService);
@@ -31,11 +32,85 @@ describe('CourseService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('should call GET /courses and return mock courses', async () => {
+    const mockRawCourses = [
+      {
+        id: '1',
+        name: 'Angular Fundamentals',
+        code: 'ANG101',
+        credits: 3,
+        gradeStatus: 'pending' as const,
+        enrolled: false,
+      },
+      {
+        id: '2',
+        name: 'React Basics',
+        code: 'RCT101',
+        credits: 4,
+        gradeStatus: 'passed' as const,
+        enrolled: true,
+      },
+    ];
+
+    const coursesPromise = firstValueFrom(service.getCourses());
+
+    const req = httpMock.expectOne('http://localhost:3000/courses');
+    expect(req.request.method).toBe('GET');
+    req.flush(mockRawCourses);
+
+    const courses = await coursesPromise;
+    expect(courses.length).toBe(2);
+    expect(courses[0].name).toBe('Angular Fundamentals');
+  });
+
+  it('should handle HTTP error codes like 500 Internal Server Error', async () => {
+    const coursesPromise = firstValueFrom(service.getCourses());
+
+    // Flush the initial request + 2 retries (driven by RxJS retry(2) in the service)
+    for (let i = 0; i < 3; i++) {
+      const req = httpMock.expectOne('http://localhost:3000/courses');
+      expect(req.request.method).toBe('GET');
+      req.flush('Error loading courses', { status: 500, statusText: 'Internal Server Error' });
+    }
+
+    let thrownError: any;
+    try {
+      await coursesPromise;
+    } catch (err: any) {
+      thrownError = err;
+    }
+    expect(thrownError).toBeDefined();
+    expect(thrownError.message).toBe(
+      'The courses server is currently offline. Please try again later.',
+    );
+  });
+
   it('should normalize alphanumeric course IDs to sequential numeric IDs', async () => {
     const mockRawCourses = [
-      { id: '1', name: 'Angular Fundamentals', code: 'ANG101', credits: 3, gradeStatus: 'pending', enrolled: false },
-      { id: 'some-string-id', name: 'React Basics', code: 'RCT101', credits: 4, gradeStatus: 'passed', enrolled: true },
-      { id: '3', name: 'Node.js', code: 'NOD201', credits: 5, gradeStatus: 'failed', enrolled: false }
+      {
+        id: '1',
+        name: 'Angular Fundamentals',
+        code: 'ANG101',
+        credits: 3,
+        gradeStatus: 'pending',
+        enrolled: false,
+      },
+      {
+        id: 'some-string-id',
+        name: 'React Basics',
+        code: 'RCT101',
+        credits: 4,
+        gradeStatus: 'passed',
+        enrolled: true,
+      },
+      {
+        id: '3',
+        name: 'Node.js',
+        code: 'NOD201',
+        credits: 5,
+        gradeStatus: 'failed',
+        enrolled: false,
+      },
     ];
 
     const coursesPromise = firstValueFrom(service.getCourses());
@@ -52,7 +127,14 @@ describe('CourseService', () => {
 
   it('should preserve and map client-generated numeric IDs on course creation', async () => {
     const mockRawCourses = [
-      { id: 1, name: 'Angular Fundamentals', code: 'ANG101', credits: 3, gradeStatus: 'pending', enrolled: false }
+      {
+        id: 1,
+        name: 'Angular Fundamentals',
+        code: 'ANG101',
+        credits: 3,
+        gradeStatus: 'pending',
+        enrolled: false,
+      },
     ];
 
     // Load initial courses first
@@ -66,7 +148,7 @@ describe('CourseService', () => {
       code: 'CS302',
       credits: 3,
       gradeStatus: 'pending',
-      enrolled: false
+      enrolled: false,
     };
 
     const createPromise = firstValueFrom(service.createCourse(testCourse));
@@ -74,7 +156,7 @@ describe('CourseService', () => {
     const createReq = httpMock.expectOne('http://localhost:3000/courses');
     expect(createReq.request.method).toBe('POST');
     expect(createReq.request.body.id).toBe(2);
-    
+
     // Simulate server returning a string-generated ID
     createReq.flush({
       id: 'server-string-id',
@@ -82,7 +164,7 @@ describe('CourseService', () => {
       code: 'CS302',
       credits: 3,
       gradeStatus: 'pending',
-      enrolled: false
+      enrolled: false,
     });
 
     const created = await createPromise;

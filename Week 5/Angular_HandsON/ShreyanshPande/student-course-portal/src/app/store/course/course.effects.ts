@@ -17,10 +17,14 @@ export class CourseEffects {
         this.courseService.getCourses().pipe(
           map((courses) => CourseActions.loadCoursesSuccess({ courses })),
           catchError((error) =>
-            of(CourseActions.loadCoursesFailure({ error: error.message || 'Failed to load courses.' }))
-          )
-        )
-      )
-    )
+            of(
+              CourseActions.loadCoursesFailure({
+                error: error.message || 'Failed to load courses.',
+              }),
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 }

@@ -25,7 +25,7 @@ export class CourseService {
   courses = signal<Course[]>([]);
   private idMap = new Map<number, string | number>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.apiUrl).pipe(
@@ -44,10 +44,10 @@ export class CourseService {
         let nextSequentialId = 1;
         this.idMap.clear();
 
-        const filtered = courses.filter(c => c.credits !== null && c.credits > 0);
-        const existingNumericIds = filtered.map(x => Number(x.id)).filter(x => !isNaN(x));
+        const filtered = courses.filter((c) => c.credits !== null && c.credits > 0);
+        const existingNumericIds = filtered.map((x) => Number(x.id)).filter((x) => !isNaN(x));
 
-        return filtered.map(c => {
+        return filtered.map((c) => {
           let numId = Number(c.id);
           if (isNaN(numId)) {
             while (existingNumericIds.includes(nextSequentialId)) {
@@ -68,24 +68,27 @@ export class CourseService {
       // Task 84: catchError catches failures in the pipeline
       catchError((error) => {
         console.error('[RxJS catchError] Error fetched:', error);
-        const friendlyError = new Error('The courses server is currently offline. Please try again later.');
+        const friendlyError = new Error(
+          'The courses server is currently offline. Please try again later.',
+        );
         return throwError(() => friendlyError);
-      })
+      }),
     );
   }
 
   getCourseById(id: number): Observable<Course> {
     const originalId = this.idMap.get(id) ?? id;
-    return this.http.get<Course>(`${this.apiUrl}/${originalId}`).pipe(
-      map((c) => ({ ...c, id: id }))
-    );
+    return this.http
+      .get<Course>(`${this.apiUrl}/${originalId}`)
+      .pipe(map((c) => ({ ...c, id: id })));
   }
 
   createCourse(course: Course | Omit<Course, 'id'>): Observable<Course> {
     let courseToPost = { ...course };
     let clientGeneratedId: number;
 
-    const hasId = 'id' in courseToPost && courseToPost.id !== null && !isNaN(Number(courseToPost.id));
+    const hasId =
+      'id' in courseToPost && courseToPost.id !== null && !isNaN(Number(courseToPost.id));
     if (!hasId) {
       const maxId = this.courses().reduce((max, existing) => {
         const idVal = Number(existing.id);

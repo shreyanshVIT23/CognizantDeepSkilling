@@ -31,6 +31,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
       // Propagate the error so components/services still know the request failed
       return throwError(() => error);
-    })
+    }),
   );
 };

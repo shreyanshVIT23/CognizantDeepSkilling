@@ -7,5 +7,5 @@ export const CourseActions = createActionGroup({
     'Load Courses': emptyProps(),
     'Load Courses Success': props<{ courses: Course[] }>(),
     'Load Courses Failure': props<{ error: string }>(),
-  }
+  },
 });

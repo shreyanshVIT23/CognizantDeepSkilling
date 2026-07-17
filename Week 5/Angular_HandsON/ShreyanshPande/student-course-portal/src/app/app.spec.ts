@@ -9,11 +9,7 @@ describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [
-        provideHttpClient(),
-        provideRouter([]),
-        provideStore({ course: courseReducer })
-      ],
+      providers: [provideHttpClient(), provideRouter([]), provideStore({ course: courseReducer })],
     }).compileComponents();
   });
 

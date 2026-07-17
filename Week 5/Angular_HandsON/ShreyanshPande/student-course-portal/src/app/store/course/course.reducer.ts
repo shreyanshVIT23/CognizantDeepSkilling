@@ -30,5 +30,5 @@ export const courseReducer = createReducer(
     ...state,
     loading: false,
     error,
-  }))
+  })),
 );

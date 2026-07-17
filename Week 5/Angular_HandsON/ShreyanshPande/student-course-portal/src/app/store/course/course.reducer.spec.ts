@@ -17,7 +17,14 @@ describe('Course Reducer', () => {
 
   it('should populate courses on loadCoursesSuccess', () => {
     const mockCourses = [
-      { id: 1, name: 'Test Course', code: 'TC101', credits: 3, gradeStatus: 'pending' as const, enrolled: false }
+      {
+        id: 1,
+        name: 'Test Course',
+        code: 'TC101',
+        credits: 3,
+        gradeStatus: 'pending' as const,
+        enrolled: false,
+      },
     ];
     const action = CourseActions.loadCoursesSuccess({ courses: mockCourses });
     const state = courseReducer({ ...initialCourseState, loading: true }, action);
