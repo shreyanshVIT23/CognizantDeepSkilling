@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { NgClass, NgStyle } from '@angular/common';
 import { HighlightDirective } from '../../directives/highlight';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-course-card',
@@ -43,14 +44,7 @@ export class CourseCard implements OnChanges {
   }
 
   @Input()
-  course!: {
-    id: number;
-    name: string;
-    code: string;
-    credits: number | null;
-    gradeStatus: string;
-    enrolled: boolean;
-  };
+  course!: Course;
   @Output()
   enrollRequested = new EventEmitter<number>();
 }

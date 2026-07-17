@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { CourseCard } from '../../components/course-card/course-card';
+import { CourseService } from '../../services/course';
+import { Course } from '../../models/course.model';
 
 @Component({
   selector: 'app-course-list',
@@ -10,58 +12,17 @@ import { CourseCard } from '../../components/course-card/course-card';
 })
 export class CourseList implements OnInit {
   isLoading = signal(true);
+  courses: Course[] = [];
+  selectedCourseId: number | null = null;
+
+  constructor(protected courseService: CourseService) {}
+
   ngOnInit() {
     setTimeout(() => {
       this.isLoading.set(false);
     }, 1500);
+    this.courses = this.courseService.getCourses();
   }
-  courses = [
-    {
-      id: 1,
-      name: 'Angular',
-      code: 'CS301',
-      credits: 4,
-      gradeStatus: 'passed',
-      enrolled: false,
-    },
-
-    {
-      id: 2,
-      name: 'Python',
-      code: 'CS302',
-      credits: 3,
-      gradeStatus: 'failed',
-      enrolled: false,
-    },
-
-    {
-      id: 3,
-      name: 'Machine Learning',
-      code: 'CS401',
-      credits: 5,
-      gradeStatus: 'pending',
-      enrolled: false,
-    },
-
-    {
-      id: 4,
-      name: 'Database Systems',
-      code: 'CS205',
-      credits: 1,
-      gradeStatus: 'pending',
-      enrolled: false,
-    },
-
-    {
-      id: 5,
-      name: 'Operating Systems',
-      code: 'CS303',
-      credits: null,
-      gradeStatus: 'passed',
-      enrolled: false,
-    },
-  ];
-  selectedCourseId: number | null = null;
 
   onEnroll(courseId: number) {
     this.selectedCourseId = courseId;
