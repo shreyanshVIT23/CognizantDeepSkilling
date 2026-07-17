@@ -44,7 +44,7 @@ and changes in the component property update the UI.
 
   <div class="card">
     <h3>Enrolled</h3>
-    <p>3</p>
+    <p>{{enrolledCount}}</p>
   </div>
 
   <div class="card">
@@ -56,3 +56,17 @@ and changes in the component property update the UI.
 <hr>
 
 <app-course-summary-widget></app-course-summary-widget>
+
+<hr>
+
+<h3>Hierarchical DI Demonstration (Notification Widget)</h3>
+<p>
+  Each of the notification panels below is an instance of <code>NotificationComponent</code>.
+  Because the <code>NotificationService</code> is configured in the component's <code>providers</code> array rather than the root injector, 
+  each component receives its own isolated instance. Messages added to one will not appear in the other.
+</p>
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap;">
+  <app-notification></app-notification>
+  <app-notification></app-notification>
+</div>

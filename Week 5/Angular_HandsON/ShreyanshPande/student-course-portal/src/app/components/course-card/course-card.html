@@ -15,8 +15,8 @@
       {{ course.credits | creditLabel }}
     </p>
     <button
-      (click)="enrollRequested.emit(course.id)">
-      Enroll
+      (click)="toggleEnrollment()">
+      {{ isEnrolled ? 'Unenroll' : 'Enroll' }}
     </button>
     @switch (course.gradeStatus) {
       @case ('passed') {

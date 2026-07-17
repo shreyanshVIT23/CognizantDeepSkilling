@@ -1,0 +1,19 @@
+<div class="notification-widget">
+  <h4>Notification Module</h4>
+  <div class="notification-actions">
+    <input #msgInput type="text" placeholder="Enter message" class="msg-input" />
+    <button (click)="notificationService.add(msgInput.value); msgInput.value = ''" class="add-msg-btn">Add Msg</button>
+  </div>
+  
+  <ul class="notification-list">
+    @for (note of notificationService.notifications; track note) {
+      <li class="notification-item">
+        {{ note }}
+      </li>
+    } @empty {
+      <li class="no-notes">
+        No notifications.
+      </li>
+    }
+  </ul>
+</div>

@@ -15,7 +15,7 @@ export class CourseSummaryWidget {
   get courses(): Course[] {
     return this.courseService.getCourses();
   }
-  
+
   addQuickCourse(): void {
     const nextId = this.courses.length + 1;
     const newCourse: Course = {

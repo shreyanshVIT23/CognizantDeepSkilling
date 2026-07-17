@@ -2,12 +2,11 @@
 @if (isLoading()) {
   <p>Loading Courses</p>
 } @else {
-  <h3>Courses Available: {{courseService.getCourses().length}}</h3>
+  <h3>Courses Available: {{courses.length}}</h3>
   @if (courses.length !== 0) {
     @for (c of courses; track c.id) {
       <app-course-card
-        [course]="c"
-        (enrollRequested)="onEnroll($event)">
+        [course]="c">
       </app-course-card>
       }
     }

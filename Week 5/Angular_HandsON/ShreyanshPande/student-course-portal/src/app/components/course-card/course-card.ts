@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
 import { HighlightDirective } from '../../directives/highlight';
 import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
 import { Course } from '../../models/course.model';
+import { EnrollmentService } from '../../services/enrollment';
 
 @Component({
   selector: 'app-course-card',
@@ -12,6 +13,8 @@ import { Course } from '../../models/course.model';
   styleUrl: './course-card.css',
 })
 export class CourseCard implements OnChanges {
+  constructor(private enrollmentService: EnrollmentService) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log('Course Changed', changes['course']);
   }
@@ -22,7 +25,7 @@ export class CourseCard implements OnChanges {
   // Getter keeps the template clean by moving UI logic into the component.
   get cardClasses() {
     return {
-      'card--enrolled': this.course.enrolled,
+      'card--enrolled': this.isEnrolled,
       'card--full': (this.course.credits ?? 0) >= 4,
       expanded: this.isExpanded,
     };
@@ -45,6 +48,16 @@ export class CourseCard implements OnChanges {
 
   @Input()
   course!: Course;
-  @Output()
-  enrollRequested = new EventEmitter<number>();
+
+  toggleEnrollment() {
+    if (this.enrollmentService.isEnrolled(this.course.id)) {
+      this.enrollmentService.unenroll(this.course.id);
+    } else {
+      this.enrollmentService.enroll(this.course.id);
+    }
+  }
+
+  get isEnrolled() {
+    return this.enrollmentService.isEnrolled(this.course.id);
+  }
 }
