@@ -9,6 +9,7 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
+import { CanComponentDeactivate } from './can-deactivate';
 
 @Component({
   selector: 'app-reactive-enrollment-form',
@@ -17,7 +18,7 @@ import {
   templateUrl: './reactive-enrollment-form.html',
   styleUrl: './reactive-enrollment-form.css',
 })
-export class ReactiveEnrollmentForm implements OnInit {
+export class ReactiveEnrollmentForm implements OnInit, CanComponentDeactivate {
   enrollForm!: FormGroup;
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
@@ -67,5 +68,12 @@ export class ReactiveEnrollmentForm implements OnInit {
   }
   removeCourse(index: number) {
     this.additionalCourses.removeAt(index);
+  }
+
+  canDeactivate(): boolean {
+    if (!this.enrollForm.dirty) {
+      return true;
+    }
+    return window.confirm('You have unsaved changes. Leave?');
   }
 }

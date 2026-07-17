@@ -4,7 +4,7 @@
   [ngClass]="cardClasses"
   [ngStyle]="borderStyles">
   <h2>{{ course.name }}</h2>
-  <button (click)="toggleDetails()">
+  <button (click)="toggleDetails(); $event.stopPropagation()">
     {{ isExpanded ? 'Hide Details' : 'Show Details' }}
   </button>
   @if (isExpanded) {
@@ -15,7 +15,7 @@
       {{ course.credits | creditLabel }}
     </p>
     <button
-      (click)="toggleEnrollment()">
+      (click)="toggleEnrollment(); $event.stopPropagation()">
       {{ isEnrolled ? 'Unenroll' : 'Enroll' }}
     </button>
     @switch (course.gradeStatus) {
