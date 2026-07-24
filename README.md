@@ -2,9 +2,7 @@
 
 This repository contains my weekly assignments, exercises, and learning activities completed as part of the Cognizant training program. The repository is organized in a structured manner to track progress throughout the training period.
 
-> ## Note: This README.md will be continuously updated as the weeks progress and is not complete yet. 
-
-> Completed Weeks: **5**
+> Completed Weeks: **6**
 
 ## Project Overview
 
@@ -38,20 +36,19 @@ The project follows a **weekly submission model**, where each week's work is sto
 
 Depending on the weekly assignments, the repository includes:
 
-* Java 
+* Java
 * Oracle Database for PL/SQL
 * Spring, JPA, Hibernate, Maven, MockMVC, Spring Security, JWT, Spring Cloud, Spring Webflux, EurekaDiscovery
 * TypeScript, Angular, RxJS, NgRX suite, Vitest, @vitest/coverage-v8, json-server
 * MySQL & MySQL WorkBench
+* Git, GitHub, p4merge, Notepad++, Git Bash
 * Other technologies introduced during training
-
 
 ## Objectives
 
 * Apply concepts learned during Cognizant training.
 * Develop problem-solving and programming skills.
 * Practice industry-standard coding practices.
-
 
 ## Weekly Progress
 
@@ -62,8 +59,7 @@ Depending on the weekly assignments, the repository includes:
 | Week 3 | Completed Mandatory Exercises|
 | Week 4 | Completed Mandatory Exercises|
 | Week 5 | Completed|
-| Week 6 | Partially Completed|
-| Week 7 | Pending     |
+| Week 6 | Completed|
 
 ---
 
@@ -72,7 +68,6 @@ Depending on the weekly assignments, the repository includes:
 * Solutions are provided for educational and learning purposes.
 * Code may be updated and improved as new concepts are learned.
 * Folder structure may evolve based on assignment requirements.
-
 
 ## Author
 
